@@ -1,6 +1,7 @@
 class Solution {
 public:
     //heap sort practice
+    //? function calls cause massive overhead, what's the more suitable sorting algorithm?
     void heaplify(vector<int> &nums, int parent, int size){
         int lChild = 2*parent + 1;
         int rChild = 2*parent + 2;
