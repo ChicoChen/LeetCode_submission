@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //learn from solution
     int minSubarray(vector<int>& nums, int p) {
         int remainder = 0;
         for(int num : nums){
