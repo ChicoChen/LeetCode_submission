@@ -1,51 +1,31 @@
 class Solution {
 public:
-    //my implementatation
-    //todo: optimize, please refer to editorial
-    bool areSentencesSimilar(string sentence1, string sentence2) {
-        int n1 = sentence1.size(), n2 = sentence2.size();
-        //force n1 to be <= n2
-        if (n1 > n2) {
-            std::swap(sentence1, sentence2);
+    //Updated:
+        //time: 0ms faster than 100.00%, memory: 8.7MB, less than 42.42%
+        //learn from editorial - use 2-pointer to simulate deque
+        //abandon tricky space processing, just use sstream.
+    bool areSentencesSimilar(string s1, string s2) {
+        std::stringstream ss1(s1), ss2(s2);
+        string word;
+        vector<string> v1, v2;
+        while(ss1 >> word) v1.push_back(word);
+        while(ss2 >> word) v2.push_back(word);
+
+        int n1 = v1.size(), n2 = v2.size();
+        if(n1 > n2){
             std::swap(n1, n2);
-        }
-
-        int prefix = 0;
-        while (prefix < n1 && sentence1[prefix] == sentence2[prefix]) {
-            prefix++;
-        }
-
-        // case 1: insert at the end of s1
-        if (prefix == n1) {
-            //if sentence2[prefix] != ' ' -> s2 != s1 inserted at the end,
-            // but still mightbe s1 == s1 inserted at the begining. 
-            if(n1 == n2 || sentence2[prefix] == ' '){
-                return true;
-            }
-            
-        }
-
-        int suffix = 0;
-        while (n1 - 1 - suffix >= 0 &&
-              sentence1[n1 - 1 - suffix] == sentence2[n2 - 1 - suffix]) {
-            suffix++;
+            std::swap(v1, v2);
         }
         
-        //case 2: insert a the begining of sentence1
-        //if n1 == n2, will already return true in prefix-test
-        if(suffix == n1){
-            return sentence2[n2 - suffix - 1] == ' ';
-        }
-        else{
-            //string not seperate by space.
-            if(prefix > 0 && sentence1[prefix - 1] != ' '){
-                return false;
-            }
-            else if(suffix > 0 && sentence1[n1 - suffix] != ' '){
-                return false;
-            }
+        int head = 0, tail = 0;
+        while(head < n1 && v1[head] == v2[head]){
+            head++;
         }
 
-        return prefix + suffix >= n1 + 1; //n1 and a repeated ' '
+        while(tail < n1 && v1[n1 - 1 - tail] == v2[n2 - 1 - tail]){
+            tail++;
+        }
+
+        return head > (n1 - 1 - tail);
     }
 };
