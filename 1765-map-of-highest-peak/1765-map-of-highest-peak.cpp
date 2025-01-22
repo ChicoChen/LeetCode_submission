@@ -13,7 +13,7 @@ public:
         int m = isWater.size(), n = isWater[0].size();
         vector<pair<int, int>> directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
         vector<vector<int>> heights(m, vector<int>(n, -1));
-        priority_queue<Cell, vector<Cell>, std::greater<Cell>> BFS;
+        queue<Cell> BFS;
 
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
@@ -24,7 +24,7 @@ public:
         }
 
         while(!BFS.empty()){
-            Cell cell = BFS.top();
+            Cell cell = BFS.front();
             BFS.pop();
 
             for(const auto &direction: directions){
