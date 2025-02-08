@@ -14,7 +14,7 @@ public:
     
     int find(int number) {
         if(!indices.contains(number)) return -1;
-        return *indices[number].begin();
+        return (indices[number].empty())? -1: *indices[number].begin();
     }
 
 private:
