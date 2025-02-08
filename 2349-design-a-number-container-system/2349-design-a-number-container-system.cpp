@@ -11,7 +11,7 @@ public:
         if (index_val.count(index)) {
             int prevNum = index_val[index];
             if (prevNum == number) return;
-            res[prevNum].push(INT_MAX); // Lazy deletion
+            // res[prevNum].push(INT_MAX); // Lazy deletion
         }
         res[number].push(index);
         index_val[index] = number;
